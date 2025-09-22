@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Renusri | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #003c8f;
+      --text: #756868;
+      --bg: #1e2c4c;
+      --accent: #00bcd4;
+    }
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+      transition: background 0.4s, color 0.4s;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      padding: 1em 2em;
+      background: var(--primary);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header h1 { margin: 0; font-size: 24px; }
+    nav a {
+      color: var(--text);
+      margin-left: 1em;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    section {
+      padding: 4em 2em;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .hero {
+      text-align: center;
+    }
+    .hero h2 {
+      font-size: 32px;
+      margin-bottom: 0.2em;
+    }
+    .typewriter {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #00bcd4;
+      width: 0;
+      animation: typing 3s steps(40, end) forwards;
+    }
+    @keyframes typing {
+      to { width: 100%; }
+    }
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+    }
+    .card {
+      background: #1e293b;
+      padding: 1em;
+      flex: 1;
+      min-width: 280px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1em;
+      text-align: center;
+    }
+    .skills-grid div {
+      background: #263959;
+      padding: 1em;
+      border-radius: 6px;
+    }
+    .project {
+      margin-bottom: 1.5em;
+      cursor: pointer;
+      border-bottom: 1px solid #334155;
+    }
+    .theme-toggle {
+      cursor: pointer;
+      border: 1px solid var(--accent);
+      padding: 0.5em;
+      border-radius: 6px;
+      background: none;
+      color: var(--accent);
+    }
+    footer {
+      text-align: center;
+      padding: 1em;
+      background: #1c2a4d;
+      color: #94a3b8;
+    }
+    .profile {
+  text-align: center;
+  margin-bottom: 1.5em;
+}
+.profile img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border: 4px solid var(--accent);
+}
+.contact-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2em;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  max-width: 600px;
+  margin: auto;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+}
+
+.contact-card a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.floating-label {
+  position: relative;
+  margin-bottom: 1.5em;
+}
+
+.floating-label input,
+.floating-label textarea {
+  width: 100%;
+  padding: 12px 10px;
+  background: transparent;
+  border: 1px solid #ccc;
+  color: inherit;
+  font-size: 1em;
+  border-radius: 6px;
+  outline: none;
+}
+
+.floating-label label {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  font-size: 0.9em;
+  color: #aaa;
+  pointer-events: none;
+  transition: 0.2s ease all;
+}
+
+.floating-label input:focus + label,
+.floating-label input:not(:placeholder-shown) + label,
+.floating-label textarea:focus + label,
+.floating-label textarea:not(:placeholder-shown) + label {
+  top: -10px;
+  left: 10px;
+  font-size: 0.75em;
+  color: var(--accent);
+  background: var(--bg);
+  padding: 0 4px;
+}
+
+.contact-card button {
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.contact-card button:hover {
+  background: #00acc1;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>kuriti Mahita</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+    </nav>
+  </header>
+
+ <section class="hero">
+  
+  <h2>Hello, I'm <span class="typewriter">a Frontend Developer</span></h2>
+  <p>I build interactive and educational web experiences.</p>
+</section>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Who Am I?</h3>
+        <p>A passionate developer focused on creating dynamic and accessible web apps.</p>
+      </div>
+      <div class="card">
+        <h3>What I Do</h3>
+        <p>From API integration to theme design, I build user-centric applications.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div>HTML & CSS</div>
+      <div>JavaScript</div>
+      <div>data structures</div>
+    <div> C programming</div>
+      <div>Git/GitHub</div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="project">
+      <h3>📚 StudyPath Web App</h3>
+      <p>A modular educational tool with search filters and real-time news integration.</p>
+    </div>
+    <div class="project">
+      <h3>🎬 Stranger Things Fan Site</h3>
+      <p>An interactive single-page site with posters, carousel, and quiz, styled in maroon.</p>
+    </div>
+  </section>
+
+ <section id="contact">
+  <h2>Let's Connect 🚀</h2>
+  <div class="contact-card">
+    <div class="contact-info">
+      <p>📧 <a href="mailto:renusridarla@gmail.com">renusri@example.com</a></p>
+      <p>💼 <a href="https://linkedin.com/in/renusri" target="_blank">LinkedIn</a></p>
+      <p>👨‍💻 <a href="https://github.com/renusri" target="_blank">GitHub</a></p>
+    </div>
+    <form action="https://formspree.io/f/mxyzabcd" method="POST">
+      <div class="floating-label">
+        <input type="text" name="name" required />
+        <label>Your Name</label>
+      </div>
+      <div class="floating-label">
+        <input type="email" name="_replyto" required />
+        <label>Your Email</label>
+      </div>
+      <div class="floating-label">
+        <textarea name="message" required rows="4"></textarea>
+        <label>Your Message</label>
+      </div>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+  <footer>
+    &copy; 2025 Renusri 
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      document.body.style.background =
+        getComputedStyle(document.body).backgroundColor === 'rgb(15, 23, 42)'
+          ? '#f0f0f0' : '#0f172a';
+      document.body.style.color =
+        document.body.style.background === '#f0f0f0' ? '#111' : '#e0e0e0';
+    }
+  </script>
+</body>
+</html>
