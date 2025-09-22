@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>To-Do List with Status Icons</title>
+  <style>
+    :root {
+      --bg-color: #ffe6f0;
+      --container-bg: #fff0f5;
+      --text-color: #d63384;
+      --button-bg: #d63384;
+      --button-hover: #ad2668;
+      --remove-bg: #e83e8c;
+      --remove-hover: #c2255c;
+      --completed-color: #b30059;
+      --task-bg: #ffe6f0;
+      --border-color: #f5c2e7;
+      --status-complete: #d63384;
+      --status-incomplete: #999;
+    }
+
+    body.dark-mode {
+      --bg-color: #2b2b2b;
+      --container-bg: #3a3a3a;
+      --text-color: #f78fb3;
+      --button-bg: #f78fb3;
+      --button-hover: #d67098;
+      --remove-bg: #f368e0;
+      --remove-hover: #c44593;
+      --completed-color: #ff99cc;
+      --task-bg: #4b4b4b;
+      --border-color: #f78fb3;
+      --status-complete: #f78fb3;
+      --status-incomplete: #bbb;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg-color);
+      padding: 20px;
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #todo-container {
+      max-width: 400px;
+      margin: 0 auto;
+      background: var(--container-bg);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(214, 51, 132, 0.2);
+      transition: background 0.3s;
+    }
+
+    input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      background: white;
+      color: black;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      background: var(--button-bg);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: var(--button-hover);
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      padding: 8px;
+      background: var(--task-bg);
+      margin-bottom: 6px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--border-color);
+      transition: background 0.3s;
+    }
+
+    li.completed input.edit-input {
+      text-decoration: line-through;
+      color: var(--completed-color);
+    }
+
+    .status {
+      font-size: 18px;
+      margin-right: 5px;
+    }
+
+    .status.complete {
+      color: var(--status-complete);
+    }
+
+    .status.incomplete {
+      color: var(--status-incomplete);
+    }
+
+    .remove-btn {
+      background: var(--remove-bg);
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      background: var(--remove-hover);
+    }
+
+    .edit-input {
+      flex-grow: 1;
+      font-size: 16px;
+      border: none;
+      background: transparent;
+      color: inherit;
+    }
+
+    #mode-toggle {
+      display: block;
+      margin: 0 auto 20px auto;
+      background: #888;
+      padding: 8px 12px;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>My To-Do List</h1>
+  <button id="mode-toggle">Switch to Dark Mode</button>
+  <div id="todo-container">
+    <input type="text" id="task-input" placeholder="Add a new task..." />
+    <button onclick="addTask()">Add</button>
+    <ul id="task-list"></ul>
+  </div>
+
+  <script>
+    const taskList = document.getElementById("task-list");
+    const modeToggle = document.getElementById("mode-toggle");
+
+    window.onload = function() {
+      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      const darkMode = JSON.parse(localStorage.getItem("darkMode"));
+      if (darkMode) {
+        document.body.classList.add("dark-mode");
+        modeToggle.textContent = "Switch to Light Mode";
+      }
+      tasks.forEach(task => createTaskElement(task.text, task.completed));
+    };
+
+    function saveTasks() {
+      const tasks = [];
+      taskList.querySelectorAll("li").forEach(li => {
+        tasks.push({
+          text: li.querySelector(".edit-input").value,
+          completed: li.classList.contains("completed")
+        });
+      });
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function addTask() {
+      const input = document.getElementById("task-input");
+      const text = input.value.trim();
+      if (text === "") {
+        alert("Please enter a task.");
+        return;
+      }
+      createTaskElement(text, false);
+      input.value = "";
+      saveTasks();
+    }
+
+    function createTaskElement(text, completed) {
+      const li = document.createElement("li");
+      if (completed) li.classList.add("completed");
+
+      const status = document.createElement("span");
+      status.className = "status";
+      updateStatusIcon(li, status);
+
+      const input = document.createElement("input");
+      input.type = "text";
+      input.value = text;
+      input.className = "edit-input";
+      input.readOnly = true;
+
+      input.addEventListener("dblclick", function() {
+        input.readOnly = false;
+        input.focus();
+      });
+
+      input.addEventListener("blur", function() {
+        input.readOnly = true;
+        saveTasks();
+      });
+
+      li.addEventListener("click", function(e) {
+        if (e.target !== input && e.target !== removeBtn) {
+          li.classList.toggle("completed");
+          updateStatusIcon(li, status);
+          saveTasks();
+        }
+      });
+
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "Remove";
+      removeBtn.className = "remove-btn";
+      removeBtn.addEventListener("click", function(event) {
+        event.stopPropagation();
+        li.remove();
+        saveTasks();
+      });
+
+      li.appendChild(status);
+      li.appendChild(input);
+      li.appendChild(removeBtn);
+      taskList.appendChild(li);
+    }
+
+    function updateStatusIcon(li, status) {
+      if (li.classList.contains("completed")) {
+        status.textContent = "✔";
+        status.classList.remove("incomplete");
+        status.classList.add("complete");
+      } else {
+        status.textContent = "✘";
+        status.classList.remove("complete");
+        status.classList.add("incomplete");
+      }
+    }
+
+    modeToggle.addEventListener("click", function() {
+      document.body.classList.toggle("dark-mode");
+      const isDark = document.body.classList.contains("dark-mode");
+      modeToggle.textContent = isDark ? "Switch to Light Mode" : "Switch to Dark Mode";
+      localStorage.setItem("darkMode", JSON.stringify(isDark));
+    });
+  </script>
+
+</body>
+</html>
