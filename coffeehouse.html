@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CoffeeHouse</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e3f2e1 0%, #dfe9d1 100%);
+    }
+    nav {
+      background-color: #ccea8e;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+    nav h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    nav a {
+      color: white;
+      margin-left: 2rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .section {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem;
+    }
+    .menu-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: #fbfaef;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      padding: 1rem;
+    }
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card h3 {
+      margin-top: 0.5rem;
+      color: #4e5b2c;
+    }
+    .card button {
+      background: #6b8e23;
+      border: none;
+      padding: 0.5rem 1rem;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 0.5rem;
+    }
+    .details {
+      display: none;
+      margin-top: 0.5rem;
+      color: #4e5b2c;
+    }
+    .contact-section {
+      background: #fcfbf7;
+      padding: 2rem;
+      border-radius: 10px;
+      margin-top: 3rem;
+    }
+    .contact-section h2 {
+      text-align: center;
+      color: #556b2f;
+    }
+    .contact-form label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #4e5b2c;
+    }
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border: 1px solid #cdd0ba;
+      border-radius: 5px;
+      font-size: 1rem;
+      background-color: #f8f9f3;
+    }
+    .contact-form button {
+      background: #6b8e23;
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 5px;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      width: 100%;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      color: #4e5b2c;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h1>CoffeeHouse</h1>
+    <div>
+      <a href="#home">Home</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <div class="section" id="home">
+    <h2 style="color:#4e5b2c;">Our Menu</h2>
+    <div class="menu-items" id="menuContainer"></div>
+  </div>
+
+  <div class="section contact-section" id="contact">
+    <h2>Contact Us</h2>
+    <form class="contact-form">
+      <label>Name</label>
+      <input type="text" placeholder="Your full name" required />
+
+      <label>Email</label>
+      <input type="email" placeholder="you@example.com" required />
+
+      <label>Message</label>
+      <textarea rows="5" placeholder="We'd love to hear from you!"></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <footer>
+    &copy; 2025 CoffeeHouse. All rights reserved.
+  </footer>
+
+  <script>
+    const items = [
+      {
+        name: "Matcha Latte",
+        img: "https://ucarecdn.com/6aaa3bb8-8a69-41a1-9f8a-7c9a7380c4d6/-/crop/4016x5425/0,296/-/preview/",
+        ingredients: ["1 tsp matcha powder", "2 tsp hot water", "3/4 cup milk", "Sweetener (optional)"],
+        steps: ["Sift matcha.", "Whisk with water.", "Heat/froth milk.", "Combine & enjoy."]
+      },
+      {
+        name: "Cappuccino",
+        img: "https://www.nescafe.com/nz/sites/default/files/2023-09/NESCAF%C3%89%20Cappuccino%20step%201%20mobile.jpg",
+        ingredients: ["1 shot espresso", "1/3 cup steamed milk", "1/3 cup milk foam"],
+        steps: ["Brew espresso.", "Steam milk.", "Pour espresso, milk, then foam."]
+      },
+      {
+        name: "Croissant",
+        img: "https://amintiri.in/cdn/shop/files/550A5608_jpg.jpg?v=1698133218",
+        ingredients: ["Flour", "Butter", "Milk", "Sugar", "Yeast", "Salt"],
+        steps: ["Make dough.", "Layer with butter.", "Roll, proof, bake."]
+      },
+      {
+        name: "Iced Americano",
+        img: "https://cdn.shopify.com/s/files/1/0622/2866/0444/files/2-Iced-Americano-glasses_1024x1024.jpg?v=1712188372",
+        ingredients: ["1-2 shots espresso", "Cold water", "Ice"],
+        steps: ["Brew espresso.", "Add cold water.", "Serve over ice."]
+      },
+      {
+        name: "Cold Brew",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT116wHqWZcj-V5R5ysue8exf2n2ewy1ZTOfA&s",
+        ingredients: ["Coarse coffee grounds", "Water", "Ice"],
+        steps: ["Soak coffee for 12-18 hrs.", "Strain.", "Serve chilled."]
+      },
+      {
+  name: "Hot Chocolate",
+  img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnurlPAU_aWo5JU6M5OrP1aPhOjiPZkopKEw&s",
+  ingredients: [
+    "2 tbsp unsweetened cocoa powder",
+    "2 cups milk",
+    "2 tbsp sugar",
+    "1/2 tsp vanilla extract",
+    "Whipped cream (optional)"
+  ],
+  steps: [
+    "In a saucepan, whisk cocoa, sugar, and milk together.",
+    "Heat over medium flame until warm, do not boil.",
+    "Add vanilla extract and stir.",
+    "Pour into a mug and top with whipped cream."
+  ]
+}
+    ];
+
+    const container = document.getElementById("menuContainer");
+
+    items.forEach((item, i) => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const ingList = item.ingredients.map(i => `<li>${i}</li>`).join("");
+      const stepList = item.steps.map(s => `<li>${s}</li>`).join("");
+
+      card.innerHTML = `
+        <img src="${item.img}" alt="${item.name}" />
+        <h3>${item.name}</h3>
+        <button onclick="toggle(${i})">View Process</button>
+        <div class="details" id="details-${i}">
+          <h4>Ingredients:</h4>
+          <ul>${ingList}</ul>
+          <h4>Steps:</h4>
+          <ol>${stepList}</ol>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+
+    function toggle(index) {
+      const el = document.getElementById(`details-${index}`);
+      el.style.display = el.style.display === "block" ? "none" : "block";
+    }
+  </script>
+
+</body>
+</html>
